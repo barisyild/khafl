@@ -24,6 +24,8 @@ class DisplayObjectContainer extends InteractiveObject {
 
         __worldX = parent.__worldX + this.x;
         __worldY = parent.__worldY + this.y;
+        __worldScaleX = parent.__worldScaleX * this.scaleX;
+        __worldScaleY = parent.__worldScaleY * this.scaleY;
 
         for(children in __children)
         {

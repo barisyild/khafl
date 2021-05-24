@@ -12,6 +12,12 @@ class Bitmap extends DisplayObject {
     override private function __render(framebuffer:Framebuffer):Void
     {
         var g = framebuffer.g2;
-        g.drawImage(bitmapData.__image, __worldX, __worldY);
+
+        if(__worldScaleX == 1.0 && __worldScaleY == 1.0)
+        {
+            g.drawImage(bitmapData.__image, __worldX, __worldY);
+        }else{
+            g.drawScaledImage(bitmapData.__image, __worldX, __worldY, bitmapData.width * __worldScaleX, bitmapData.height * __worldScaleY);
+        }
     }
 }

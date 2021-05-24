@@ -4,6 +4,10 @@ class Tile {
     public var parent:TileContainer;
 
     public var id:Int;
+
+    public var scaleX:Float;
+    public var scaleY:Float;
+
     public var x:Float;
     public var y:Float;
     public var tileset:Tileset;
@@ -11,7 +15,7 @@ class Tile {
     public function new() {
         __length = 0;
         id = 0;
-        x = 0.0;
-        y = 0.0;
+        x = y = 0.0;
+        scaleX = scaleY = 1.0;
     }
 }

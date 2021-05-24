@@ -10,6 +10,8 @@ class Stage extends DisplayObjectContainer {
     override private function __update(parent:DisplayObject):Void {
         __worldX = this.x;
         __worldY = this.y;
+        __worldScaleX = this.scaleX;
+        __worldScaleY = this.scaleY;
 
         for(children in __children)
         {

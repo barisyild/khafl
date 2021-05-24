@@ -29,17 +29,17 @@ class Tilemap extends DisplayObject {
     override private function __render(framebuffer:Framebuffer):Void
     {
         var g = framebuffer.g2;
-        __renderTileContainer(framebuffer, __container);
+        __renderTileContainer(framebuffer, __container, __container.scaleX * __worldScaleX, __container.scaleY * __worldScaleY);
     }
 
-    private inline function __renderTileContainer(framebuffer:Framebuffer, tileContainer:TileContainer):Void
+    private inline function __renderTileContainer(framebuffer:Framebuffer, tileContainer:TileContainer, scaleX:FastFloat, scaleY:FastFloat):Void
     {
-        var id, tileset, rectangleX, rectangleY, rectangleWidth, rectangleHeight;
+        var id, tileset, rectangleX, rectangleY, rectangleWidth, rectangleHeight, targetScaleX, targetScaleY;
         for(tile in tileContainer.__children)
         {
             if(tile.__length > 0)
             {
-                __renderTileContainer(framebuffer, cast tile);
+                __renderTileContainer(framebuffer, cast tile, tile.scaleX * scaleX, tile.scaleY * scaleY);
             }else{
                 tileset = tile.tileset;
 
@@ -50,7 +50,15 @@ class Tilemap extends DisplayObject {
                 rectangleWidth = tileset.rectData[id+2];
                 rectangleHeight = tileset.rectData[id+3];
 
-                framebuffer.g2.drawSubImage(tile.tileset.bitmapData.__image, __worldX + tile.x, __worldY + tile.y, rectangleX, rectangleY, rectangleWidth, rectangleHeight);
+                targetScaleX = tile.scaleX * scaleX;
+                targetScaleY = tile.scaleY * scaleY;
+
+                if(targetScaleX == 1.0 && targetScaleY == 1.0)
+                {
+                    framebuffer.g2.drawSubImage(tile.tileset.bitmapData.__image, __worldX + tile.x, __worldY + tile.y, rectangleX, rectangleY, rectangleWidth, rectangleHeight);
+                }else{
+                    framebuffer.g2.drawScaledSubImage(tile.tileset.bitmapData.__image,  rectangleX, rectangleY, rectangleWidth, rectangleHeight, __worldX + tile.x, __worldY + tile.y, rectangleWidth * targetScaleX, rectangleHeight * targetScaleY);
+                }
             }
         }
     }

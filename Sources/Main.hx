@@ -44,6 +44,7 @@ class Main extends Sprite {
         gravity = 0.5;
 
         bunnyBitmapData = BitmapData.fromImage(Assets.images.wabbit_alpha);
+        var bitmap = new Bitmap(bunnyBitmapData);
 
         tilemap = new Tilemap();
         tilemap.addEventListener(Event.ENTER_FRAME, onEnterFrame);
@@ -75,6 +76,7 @@ class Main extends Sprite {
         bunny.y = 0;
         bunny.speedX = Math.random () * 5;
         bunny.speedY = (Math.random () * 5) - 2.5;
+        //bunny.scaleX = bunny.scaleY = 50;
         bunnies.push(bunny);
 
         tilemap.addTile(bunny);

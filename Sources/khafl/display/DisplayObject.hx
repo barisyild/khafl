@@ -10,8 +10,13 @@ class DisplayObject extends EventDispatcher {
     public var y:Float;
     public var visible:Bool;
 
+    public var scaleX:Float;
+    public var scaleY:Float;
+
     private var __worldX:Float;
     private var __worldY:Float;
+    private var __worldScaleX:Float;
+    private var __worldScaleY:Float;
 
     private var __instanceId:Int; //This can be useless for optimizations.
 
@@ -21,6 +26,7 @@ class DisplayObject extends EventDispatcher {
         super();
         __instanceId = __lastInstanceId++;
         x = y = 0.0;
+        scaleX = scaleY = 1.0;
         visible = true;
     }
 
@@ -35,6 +41,8 @@ class DisplayObject extends EventDispatcher {
 
         __worldX = parent.__worldX + this.x;
         __worldY = parent.__worldY + this.y;
+        __worldScaleX = parent.__worldScaleX * this.scaleX;
+        __worldScaleY = parent.__worldScaleY * this.scaleY;
     }
 
     private function __render(framebuffer:Framebuffer):Void {
